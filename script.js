@@ -22,26 +22,42 @@ function getHumanChoice() {
     }
 }
 
-function playGame() {
-    let humanScore = 0
-    let computerScore = 0
-    function playRound(humanChoice, computerChoice) {
-        humanChoice = getHumanChoice()
-        computerChoice = getComputerChoice()
-        if (humanChoice === "rock" && computerChoice === "scissors" || humanChoice === "scissors" && computerChoice === "paper" || humanChoice === "paper" && computerChoice === "rock") {
+const para = document.querySelector("p")
+const paperbtn = document.querySelector(".paper")
+const rockbtn = document.querySelector(".rock")
+const scissorsbtn = document.querySelector(".scissors")
+computerChoice = ""
+let humanScore = 0
+let computerScore = 0
+
+function humanWon() {
+    para.innerHTML += "<strong> You won the game congrats !!!</strong> <br /> <br />"
+    humanScore = 0
+    computerScore = 0;
+}
+
+paperbtn.addEventListener("click", () => playRound("paper", computerChoice))
+rockbtn.addEventListener("click", () => playRound("rock", computerChoice))
+scissorsbtn.addEventListener("click", () => playRound("scissors", computerChoice))
+
+function playRound(humanChoice, computerChoice) {
+    computerChoice = getComputerChoice()
+    console.log(humanChoice)
+         if (humanChoice === "rock" && computerChoice === "scissors" || humanChoice === "scissors" && computerChoice === "paper" || humanChoice === "paper" && computerChoice === "rock") {
             humanScore++,
-            console.log(`You won! ${humanChoice} beat ${computerChoice}! Your score is ${humanScore}`);
+            para.innerHTML += `You won! ${humanChoice} beat ${computerChoice}! Your score is ${humanScore} <br /> `
+            if (humanScore === 5) {
+                humanWon() };
         } else if (humanChoice === computerChoice) {
-            console.log("Equality!")
+            para.innerHTML += "Equality!<br>";
         } else {
             computerScore++,
-            console.log(`You lose! ${computerChoice} beat ${humanChoice}. Your score is ${humanScore}`);
+            para.innerHTML += `You lose! ${computerChoice} beat ${humanChoice}. Your score is ${humanScore} <br /> `;
         }
     };
-    playRound();
-    playRound();
-    playRound();
-    playRound();
+
+
+function playGame() {
     playRound();
     if (humanScore > computerScore) {
         console.log(`Congratulations! You won! Your final score is ${humanScore}`);
@@ -52,4 +68,3 @@ function playGame() {
     }
 };
 
-playGame()
